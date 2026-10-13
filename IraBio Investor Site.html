@@ -1,0 +1,673 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>IraBio Investor Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: white-and-emerald institutional site. White paper carries the evidence with hairline rules; emerald bands carry the process and the ask. Green is the only accent. */
+:root{
+  --paper:#FFFFFF; --paper-2:#F2F7F4; --ink:#0A2117; --muted:#4E665A; --line:#DCE7E0;
+  --field:#0A6B43; --field-2:#05462B; --on-field:#FFFFFF; --on-field-muted:#CFEBDC; --field-line:rgba(255,255,255,.18);
+  --accent:#0B7D4C; --accent-ink:#0B7D4C; --leaf:#0E9F5E; --bright:#2ED37F; --on-accent:#FFFFFF;
+  --display:"Spectral",Georgia,"Times New Roman",serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --wrap:1200px; --gut:clamp(16px,4vw,48px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#07130D; --paper-2:#0C1D15; --ink:#EAF3ED; --muted:#9DB5A8; --line:#1C3427;
+  --field:#0A5A39; --field-2:#053522; --on-field:#FFFFFF; --on-field-muted:#C2E5D1; --field-line:rgba(255,255,255,.16);
+  --accent:#34D184; --accent-ink:#4BDB93; --leaf:#34D184; --bright:#4BE89B; --on-accent:#03261A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#07130D; --paper-2:#0C1D15; --ink:#EAF3ED; --muted:#9DB5A8; --line:#1C3427;
+  --field:#0A5A39; --field-2:#053522; --on-field:#FFFFFF; --on-field-muted:#C2E5D1; --field-line:rgba(255,255,255,.16);
+  --accent:#34D184; --accent-ink:#4BDB93; --leaf:#34D184; --bright:#4BE89B; --on-accent:#03261A; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--display);font-weight:300;letter-spacing:-.015em;text-wrap:balance;margin:0}
+h2 em,h1 em{font-style:italic;color:var(--accent)}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.num{font-variant-numeric:tabular-nums}
+
+/* Brand */
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink)}
+.brand svg{flex:none;display:block}
+.brand .wm{display:flex;flex-direction:column;line-height:1}
+.brand .wm b{font-family:var(--display);font-weight:500;font-size:21px;letter-spacing:.2em}
+.brand .wm small{font-family:var(--mono);font-size:8.5px;letter-spacing:.32em;color:var(--muted);margin-top:5px}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:76px}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0 0 0 auto;padding:0;font-size:13.5px;font-weight:500}
+.nav ul a{text-decoration:none;color:var(--muted)}
+.nav ul a:hover{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:12px;font:600 13.5px/1 var(--body);letter-spacing:.03em;padding:15px 22px;border-radius:0;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.btn-gold{background:var(--accent);color:var(--on-accent)}
+.btn-gold:hover{background:var(--field-2);color:#fff}
+.btn-gold::after{content:"\2192";font-weight:400}
+.btn-ghost{border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.dark .btn-gold{background:#fff;color:var(--field-2)}
+@media (max-width:900px){.nav ul{display:none}.nav .btn{margin-left:auto;padding:12px 14px;font-size:12.5px}}
+@media (max-width:420px){.brand .wm small{display:none}}
+
+/* Hero */
+.hero{position:relative;background:var(--paper);color:var(--ink);overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .art{position:absolute;top:0;right:0;bottom:0;width:46%;background:linear-gradient(170deg,var(--field) 0%,var(--field-2) 100%);overflow:hidden}
+.hero .art::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 55% at 70% 20%,color-mix(in srgb,var(--bright) 45%,transparent),transparent 70%)}
+#grass{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .art .cap{position:absolute;left:28px;bottom:26px;right:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-field-muted);display:flex;justify-content:space-between;gap:12px}
+.hero .wrap{position:relative;z-index:1;padding-block:clamp(64px,9vw,112px) 56px}
+.hero .copy{max-width:min(640px,52%)}
+.hero h1{font-size:clamp(46px,6.6vw,92px);line-height:1;margin-top:26px}
+.hero .lede{max-width:50ch;margin-top:26px;font-size:clamp(17px,1.5vw,19px);color:var(--muted)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.offer{margin-top:32px;padding:24px 26px;background:var(--field-2);color:#fff;position:relative;box-shadow:0 24px 48px -28px color-mix(in srgb,var(--field-2) 70%,transparent)}
+.offer::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bright)}
+.offer .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--bright)}
+.offer p{font-family:var(--display);font-size:clamp(21px,2.2vw,27px);line-height:1.3;font-weight:300;margin-top:10px}
+.offer p strong{font-weight:500;color:var(--bright)}
+.keystats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:clamp(56px,7vw,88px);border-top:1px solid var(--ink);background:var(--paper);position:relative}
+.keystats div{padding:24px 20px 4px 0;min-width:0}
+.keystats div+div{padding-left:20px;border-left:1px solid var(--line)}
+.keystats b{display:block;font-family:var(--display);font-weight:300;font-size:clamp(32px,3.4vw,46px);line-height:1;color:var(--accent);font-variant-numeric:lining-nums tabular-nums}
+.keystats b small{font-size:.42em;font-family:var(--mono);letter-spacing:.08em;color:var(--muted);margin-left:5px}
+.keystats span{display:block;margin-top:12px;font-size:13px;color:var(--muted);line-height:1.45}
+@media (max-width:980px){.hero .art{position:relative;width:auto;height:220px}.hero .copy{max-width:none}.hero .wrap{padding-top:48px}}
+@media (max-width:900px){.keystats{grid-template-columns:repeat(2,minmax(0,1fr))}.keystats div{padding:20px 12px 18px 0;border-bottom:1px solid var(--line)}.keystats div+div{padding-left:0;border-left:0}.keystats div:nth-child(even){padding-left:16px;border-left:1px solid var(--line)}.keystats div:last-child{grid-column:1/-1;border-left:0;padding-left:0}}
+
+/* Sections */
+section.band{padding-block:clamp(72px,9vw,120px);border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(40px,5vw,64px)}
+.sec-head h2{font-size:clamp(34px,4.4vw,56px);line-height:1.06;margin-top:14px}
+.sec-head p{color:var(--muted);font-size:17px;max-width:60ch}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr;align-items:start}}
+
+/* Opportunity */
+.opp{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(28px,5vw,64px)}
+@media (max-width:900px){.opp{grid-template-columns:1fr}}
+.chartcard{border:1px solid var(--line);background:var(--paper-2);padding:28px;min-width:0}
+.chartcard h3{font-family:var(--body);font-weight:600;font-size:15px;letter-spacing:0}
+.chartcard .sub{color:var(--muted);font-size:13.5px;margin-top:4px}
+.chartcard svg{display:block;width:100%;height:auto;margin-top:20px}
+.chartcard .src{font-size:12px;color:var(--muted);margin-top:14px}
+.facts{display:grid;gap:0;min-width:0}
+.fact{display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;padding-block:22px;border-top:1px solid var(--line)}
+.fact:last-child{border-bottom:1px solid var(--line)}
+.fact b{font-family:var(--display);font-weight:300;font-size:34px;line-height:1.05;font-variant-numeric:lining-nums tabular-nums}
+.fact b small{font-size:.5em;color:var(--muted);font-family:var(--mono)}
+.fact h4{margin:0 0 4px;font-size:15px;font-weight:600}
+.fact p{color:var(--muted);font-size:14.5px}
+@media (max-width:480px){.fact{grid-template-columns:1fr;gap:6px}}
+
+/* Programme */
+.plants{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.plant{background:var(--paper);padding:20px 18px 22px;min-width:0;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.plant .id{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
+.plant .loc{font-family:var(--display);font-size:22px;line-height:1.15;margin-top:auto}
+.plant .st{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+.plant .st i{width:7px;height:7px;border-radius:50%;background:var(--line);border:1px solid var(--muted);flex:none}
+.plant.ref{background:var(--field);color:var(--on-field)}
+.plant.ref .id,.plant.ref .st{color:var(--on-field-muted)}
+.plant.ref .st i{background:var(--accent);border-color:var(--accent)}
+@media (max-width:900px){.plants{grid-template-columns:repeat(2,minmax(0,1fr))}.plant{min-height:120px}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:7px;height:7px;border-radius:50%;display:inline-block}
+
+.spec{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,5vw,64px);margin-top:clamp(56px,7vw,88px)}
+@media (max-width:900px){.spec{grid-template-columns:1fr}}
+.spec h3{font-size:30px;line-height:1.15}
+.spec .intro{color:var(--muted);margin-top:14px;max-width:46ch}
+.sheet{width:100%;border-collapse:collapse;font-size:14.5px}
+.sheet caption{text-align:left;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-bottom:10px}
+.sheet th,.sheet td{text-align:left;padding:13px 0;border-top:1px solid var(--line);vertical-align:top}
+.sheet th{font-weight:500;color:var(--muted);width:44%;padding-right:16px}
+.sheet td{font-variant-numeric:tabular-nums}
+.sheet tr:last-child th,.sheet tr:last-child td{border-bottom:1px solid var(--line)}
+.gantt{margin-top:28px}
+.gantt .bar{display:grid;grid-template-columns:9fr 2fr 1fr;height:40px;font-size:12px;font-weight:600}
+.gantt .bar div{display:flex;align-items:center;padding-inline:12px;white-space:nowrap;overflow:hidden}
+.gantt .b1{background:var(--paper-2);border:1px solid var(--line)}
+.gantt .b2{background:color-mix(in srgb,var(--leaf) 22%,var(--paper));border:1px solid color-mix(in srgb,var(--leaf) 40%,var(--line))}
+.gantt .b3{background:var(--accent);color:var(--on-accent)}
+.gantt .ticks{display:grid;grid-template-columns:repeat(12,1fr);font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+.gantt .ticks span{border-left:1px solid var(--line);padding-left:4px}
+.gantt .gcap{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* Process (dark band) */
+.dark{background:linear-gradient(160deg,var(--field) 0%,var(--field-2) 100%);color:var(--on-field);border-bottom:0}
+.dark .eyebrow{color:var(--bright)}
+.dark .sec-head p{color:var(--on-field-muted)}
+.flowwrap{overflow-x:auto;margin-inline:calc(var(--gut)*-1);padding-inline:var(--gut)}
+.flowwrap svg{display:block;min-width:820px;width:100%;height:auto}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;margin-top:36px}
+.steps div{min-width:0;border-top:1px solid var(--field-line);padding-top:16px}
+.steps h4{margin:0 0 6px;font-size:15px;font-weight:600}
+.steps p{font-size:13.5px;color:var(--on-field-muted)}
+.steps .k{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.08em}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.ops{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--field-line);margin-top:clamp(48px,6vw,72px);border:1px solid var(--field-line)}
+.ops div{background:var(--field-2);padding:22px;min-width:0}
+.ops h4{margin:0 0 6px;font-size:14px;font-weight:600}
+.ops p{font-size:13.5px;color:var(--on-field-muted)}
+@media (max-width:900px){.ops{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.ops{grid-template-columns:1fr}}
+
+/* Feedstock */
+.feed{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(28px,5vw,64px);align-items:start}
+@media (max-width:900px){.feed{grid-template-columns:1fr}}
+.contract{border:1px solid var(--line)}
+.contract .row{display:grid;grid-template-columns:150px minmax(0,1fr);border-top:1px solid var(--line)}
+.contract .row:first-child{border-top:0}
+.contract .who{padding:20px;background:var(--paper-2);font-weight:600;font-size:14px;border-right:1px solid var(--line)}
+.contract .who small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:2px}
+.contract ul{margin:0;padding:18px 20px 18px 36px;font-size:14.5px;color:var(--muted)}
+.contract li+li{margin-top:4px}
+@media (max-width:520px){.contract .row{grid-template-columns:1fr}.contract .who{border-right:0;border-bottom:1px solid var(--line)}}
+.why{display:grid;gap:22px}
+.why div{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px}
+.why svg{margin-top:3px}
+.why h4{margin:0 0 3px;font-size:15px;font-weight:600}
+.why p{font-size:14.5px;color:var(--muted)}
+.pull{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(24px,2.6vw,32px);line-height:1.3;margin-bottom:32px;max-width:24ch}
+
+/* Value streams */
+.streams{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink)}
+.stream{padding:24px 22px 8px 0;min-width:0}
+.stream+.stream{padding-left:22px;border-left:1px solid var(--line)}
+.stream .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.stream h3{font-size:28px;margin:10px 0 10px}
+.stream p{font-size:14.5px;color:var(--muted)}
+.stream .basis{margin-top:16px;font-size:12.5px;font-weight:600;color:var(--leaf)}
+@media (max-width:900px){.streams{grid-template-columns:1fr 1fr}.stream:nth-child(3){padding-left:0;border-left:0}.stream{border-bottom:1px solid var(--line);padding-bottom:20px}}
+@media (max-width:520px){.streams{grid-template-columns:1fr}.stream,.stream+.stream{padding-left:0;border-left:0}}
+
+/* Impact */
+.impact{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+.impact div{min-width:0;padding-top:20px;border-top:2px solid var(--leaf)}
+.impact h3{font-size:26px;margin-bottom:10px}
+.impact p{color:var(--muted);font-size:14.5px}
+.compliance{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.compliance span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;padding:8px 12px;border:1px solid var(--line);color:var(--muted)}
+@media (max-width:820px){.impact{grid-template-columns:1fr}}
+
+/* Team */
+.team{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
+.person{min-width:0;display:flex;flex-direction:column}
+.mono{aspect-ratio:4/5;max-width:100%;background:linear-gradient(165deg,var(--field),var(--field-2));color:var(--on-field);display:flex;align-items:flex-end;padding:18px;font-family:var(--display);font-size:56px;font-weight:300;line-height:1;position:relative;overflow:hidden}
+.mono::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,transparent 0 22px,var(--field-line) 22px 23px);opacity:.6}
+.mono span{position:relative}
+.person h3{font-size:22px;margin-top:18px;line-height:1.2}
+.person .role{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-top:6px}
+.person p{font-size:14px;color:var(--muted);margin-top:12px}
+@media (max-width:900px){.team{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.team{grid-template-columns:1fr}.mono{aspect-ratio:16/9}}
+.advisors{margin-top:48px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--line)}
+.advisors div{padding:16px 18px;min-width:0;font-size:13.5px}
+.advisors div+div{border-left:1px solid var(--line)}
+.advisors b{display:block;font-weight:600}
+.advisors span{color:var(--muted);font-size:12.5px}
+@media (max-width:900px){.advisors{grid-template-columns:1fr 1fr}.advisors div+div{border-left:0}.advisors div{border-top:1px solid var(--line)}.advisors div:nth-child(-n+2){border-top:0}.advisors div:nth-child(even){border-left:1px solid var(--line)}}
+
+/* Investors */
+.invest{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,5vw,72px)}
+@media (max-width:900px){.invest{grid-template-columns:1fr}}
+.glance{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+.glance th,.glance td{text-align:left;padding:12px 0;border-top:1px solid var(--field-line);vertical-align:top}
+.glance th{font-weight:500;color:var(--on-field-muted);width:42%;padding-right:14px}
+.room{margin-top:36px}
+.room h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--bright);margin:0 0 12px;font-weight:500}
+.room ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14.5px}
+.room li{display:flex;gap:12px;color:var(--on-field-muted)}
+.room li::before{content:"";width:12px;height:1px;background:var(--bright);margin-top:12px;flex:none}
+form{background:var(--paper);color:var(--ink);padding:clamp(24px,3.4vw,40px);min-width:0}
+form h3{font-size:30px}
+form .fsub{color:var(--muted);font-size:14.5px;margin-top:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.grid2 .full{grid-column:1/-1}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:.02em;min-width:0}
+input,select,textarea{font:15px/1.4 var(--body);color:var(--ink);background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:12px 12px;width:100%;min-width:0}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:13px;color:var(--muted);margin-top:16px}
+.consent input{width:auto;margin-top:3px}
+form .btn{margin-top:22px}
+.err{color:#B3261E;font-size:13px;margin-top:12px;min-height:1em}
+.done{margin-top:20px;border:1px solid var(--line);padding:18px;background:var(--paper-2)}
+.done p{font-size:14.5px}
+.done pre{font:13px/1.5 var(--mono);white-space:pre-wrap;word-break:break-word;background:var(--paper);border:1px solid var(--line);padding:12px;margin:12px 0 0;max-height:220px;overflow:auto}
+.done .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.done code{font:600 14px var(--mono);user-select:all}
+.btn-line{border:1px solid var(--line);background:transparent;color:var(--ink);padding:9px 14px}
+
+/* Footer */
+footer{background:var(--field-2);color:var(--on-field-muted);font-size:13px}
+footer .wrap{padding-block:56px 40px}
+.fgrid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,3fr) minmax(0,5fr);gap:40px}
+@media (max-width:900px){.fgrid{grid-template-columns:1fr}}
+footer h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-field);margin:0 0 12px;font-weight:500}
+footer ol{margin:0;padding-left:18px;display:grid;gap:6px}
+footer a{color:var(--on-field-muted)}
+footer a:hover{color:var(--on-field)}
+.legal{border-top:1px solid var(--field-line);margin-top:40px;padding-top:20px;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;font-size:12px}
+</style>
+
+<nav class="nav" aria-label="Primary">
+  <div class="wrap">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="mk-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16AE69"/><stop offset=".55" stop-color="#0A6B43"/><stop offset="1" stop-color="#05462B"/></linearGradient>
+        <symbol id="mark" viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="22" fill="url(#mk-g)"/>
+          <circle cx="22" cy="22" r="18.5" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width=".8"/>
+          <path d="M22 34.5C12.6 29.4 12.4 16.6 22 9.5c9.6 7.1 9.4 19.9 0 25Z" fill="#fff"/>
+          <path d="M22 32V15.5M22 25.2l4.4-4M22 20.4l-3.9-3.6" fill="none" stroke="#0A6B43" stroke-width="1.35" stroke-linecap="round"/>
+        </symbol>
+      </defs>
+    </svg>
+    <a class="brand" href="#top" aria-label="IraBio home">
+      <svg width="40" height="40" aria-hidden="true"><use href="#mark"/></svg>
+      <span class="wm"><b>IRABIO</b><small>RENEWABLE GAS</small></span>
+    </a>
+    <ul>
+      <li><a href="#opportunity">Opportunity</a></li>
+      <li><a href="#programme">Programme</a></li>
+      <li><a href="#operations">Operations</a></li>
+      <li><a href="#feedstock">Feedstock</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+    </ul>
+    <a class="btn btn-gold" href="#investors">Request data room access</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="art" aria-hidden="true"><canvas id="grass"></canvas><div class="cap"><span>Napier grass &rarr; CBG</span><span>IS 16087:2016</span></div></div>
+  <div class="wrap">
+    <div class="copy">
+    <p class="eyebrow">Compressed biogas &middot; India</p>
+    <h1>Renewable gas, <em>grown</em> in India.</h1>
+    <p class="lede">IraBio develops and operates integrated compressed biogas plants that turn dedicated Napier grass into vehicle-grade fuel and certified organic manure.</p>
+    <div class="offer">
+      <span class="tag">Now raising</span>
+      <p>A <strong>&#8377;1,000 crore</strong> opportunity to own ten renewable gas plants in India's mandated CBG market. <strong>Make it yours.</strong></p>
+    </div>
+    <div class="ctas">
+      <a class="btn btn-gold" href="#investors">Request data room access</a>
+      <a class="btn btn-ghost" href="#programme">View the programme</a>
+    </div>
+    </div>
+    <div class="keystats">
+      <div><b class="num">10</b><span>Standard CBG plants in the first programme</span></div>
+      <div><b class="num">120<small>TPD</small></b><span>Combined CBG design capacity, 12 TPD per plant</span></div>
+      <div><b class="num">&#8377;1,000<small>CR</small></b><span>Programme size</span></div>
+      <div><b class="num">4,000+<small>AC</small></b><span>Napier grass under planned contract farming</span></div>
+      <div><b class="num">15<small>YR</small></b><span>SATAT offtake agreement framework with oil and gas companies</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="band" id="opportunity">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">The opportunity</p><h2>Policy has turned CBG demand into an obligation.</h2></div>
+      <p>India's city gas distributors must now blend compressed biogas into the CNG and PNG they sell. The mandate steps up every year to 2028&ndash;29, while installed supply remains a fraction of what it will require.</p>
+    </div>
+    <div class="opp">
+      <figure class="chartcard" style="margin:0">
+        <h3>CBG Blending Obligation</h3>
+        <p class="sub">Mandatory share of total CNG/PNG consumption, by fiscal year</p>
+        <svg viewBox="0 0 560 280" role="img" aria-label="Bar chart: 1% in FY 2025-26, 3% in FY 2026-27, 4% in FY 2027-28, 5% from FY 2028-29 onward">
+          <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--muted)">
+            <text x="0" y="234" >0%</text><text x="0" y="190">1%</text><text x="0" y="146">2%</text><text x="0" y="102">3%</text><text x="0" y="58">4%</text><text x="0" y="14">5%</text>
+          </g>
+          <g stroke="var(--line)" stroke-width="1">
+            <line x1="40" x2="560" y1="230" y2="230"/><line x1="40" x2="560" y1="186" y2="186" stroke-dasharray="2 4"/><line x1="40" x2="560" y1="142" y2="142" stroke-dasharray="2 4"/><line x1="40" x2="560" y1="98" y2="98" stroke-dasharray="2 4"/><line x1="40" x2="560" y1="54" y2="54" stroke-dasharray="2 4"/><line x1="40" x2="560" y1="10" y2="10" stroke-dasharray="2 4"/>
+          </g>
+          <g>
+            <rect x="64" y="186" width="86" height="44" fill="color-mix(in srgb, var(--leaf) 45%, var(--paper-2))"/>
+            <rect x="190" y="98" width="86" height="132" fill="color-mix(in srgb, var(--leaf) 65%, var(--paper-2))"/>
+            <rect x="316" y="54" width="86" height="176" fill="var(--leaf)"/>
+            <rect x="442" y="10" width="86" height="220" fill="var(--accent)"/>
+          </g>
+          <g font-family="Spectral, Georgia, serif" font-size="22" fill="var(--ink)" text-anchor="middle">
+            <text x="107" y="178">1%</text><text x="233" y="90">3%</text><text x="359" y="46">4%</text><text x="485" y="38" fill="var(--on-accent)">5%</text>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="var(--muted)" text-anchor="middle">
+            <text x="107" y="252">FY 2025&#8211;26</text><text x="233" y="252">FY 2026&#8211;27</text><text x="359" y="252">FY 2027&#8211;28</text><text x="485" y="252">FY 2028&#8211;29 +</text>
+            <text x="107" y="270">mandatory</text>
+          </g>
+        </svg>
+        <p class="src">Source: National Biofuels Coordination Committee, November 2023; MoPNG.</p>
+      </figure>
+      <div class="facts">
+        <div class="fact"><b class="num">~108<small> / 1,094</small></b><div><h4>Plants commissioned against active LoIs</h4><p>SATAT targets 5,000 plants producing 15 million tonnes of CBG a year. As of July 2025, about 108 plants were commissioned against roughly 1,094 active letters of intent.</p></div></div>
+        <div class="fact"><b class="num">85%</b><div><h4>Of average CNG retail price</h4><p>From 1 June 2025 the SATAT procurement price was reset to 85% of the average CNG retail price, with transport support of &#8377;1.50&ndash;2.50 per kg beyond 50 km.</p></div></div>
+        <div class="fact"><b class="num">&#8377;10<small> CR</small></b><div><h4>Central Financial Assistance cap</h4><p>MNRE provides &#8377;4 crore per 4.8 TPD of CBG capacity, up to &#8377;10 crore per project. CBG plants also qualify for priority sector lending.</p></div></div>
+        <div class="fact"><b class="num">750</b><div><h4>New CBG projects targeted by 2028&ndash;29</h4><p>The government expects the blending obligation to draw about &#8377;37,500 crore of investment into the sector.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="programme">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">The programme</p><h2>Ten plants. One standard design.</h2></div>
+      <p>Every plant is built to the same 12 TPD specification, with its own Napier grass catchment and on-site manure processing. One design lets us procure, build and operate at scale. Plant 01 in Karnataka is the reference asset.</p>
+    </div>
+    <div class="plants" role="list">
+      <div class="plant ref" role="listitem"><span class="id">PLANT 01</span><span class="loc">Karnataka</span><span class="st"><i></i>Reference asset &middot; in development</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 02</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 03</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 04</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 05</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 06</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 07</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 08</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 09</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+      <div class="plant" role="listitem"><span class="id">PLANT 10</span><span class="loc">Pipeline</span><span class="st"><i></i>Site selection</span></div>
+    </div>
+    <div class="legend"><span><i style="background:var(--accent)"></i>In development</span><span><i style="border:1px solid var(--muted)"></i>Site selection across southern and central India; locations shared in the data room</span></div>
+
+    <div class="spec">
+      <div>
+        <p class="eyebrow">Standard plant</p>
+        <h3 style="margin-top:12px">One specification, repeated ten times.</h3>
+        <p class="intro">Each plant pairs a digestion and upgrading facility with a manure processing unit and a dedicated farming catchment. The first plant moves from construction to commercial operation in twelve months.</p>
+        <div class="gantt" aria-label="Build timeline for one plant">
+          <div class="bar"><div class="b1">Construction &amp; procurement</div><div class="b2">Commissioning</div><div class="b3">COD</div></div>
+          <div class="ticks num"><span>M1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+          <p class="gcap">Months 1&ndash;9 EPC and setup, months 10&ndash;11 testing and ramp-up, month 12 commercial operation.</p>
+        </div>
+      </div>
+      <table class="sheet">
+        <caption>Plant specification</caption>
+        <tr><th>CBG output</th><td>12 TPD design, 12&ndash;15 TPD range</td></tr>
+        <tr><th>Gas standard</th><td>IS 16087:2016, compressed to 250 bar</td></tr>
+        <tr><th>Organic manure</th><td>35&ndash;40 TPD FOM and LFOM, FCO conforming</td></tr>
+        <tr><th>Co-product</th><td>Captured CO&#8322; for industrial use</td></tr>
+        <tr><th>Plant site</th><td>~25 acres</td></tr>
+        <tr><th>Feedstock catchment</th><td>400&ndash;480 acres of contracted Napier grass</td></tr>
+        <tr><th>Digestion technology</th><td>High-load reactor anaerobic digestion</td></tr>
+        <tr><th>Control</th><td>Plant-wide SCADA with central remote monitoring</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band dark" id="operations">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">How a plant works</p><h2>From field to fuel, and back to the field.</h2></div>
+      <p>Every tonne of grass yields two products. The gas goes to market; the digestate returns to the same farms as fertiliser, closing the nutrient loop that keeps the catchment productive.</p>
+    </div>
+    <div class="flowwrap">
+      <svg viewBox="0 0 1100 230" role="img" aria-label="Process: Napier grass, anaerobic digestion, upgrading, compression and dispatch of CBG; digestate becomes organic manure returned to the farm">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2ED37F"/></marker>
+          <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5BE39E"/></marker>
+        </defs>
+        <g fill="none" stroke="#2ED37F" stroke-width="1.5" marker-end="url(#ah)">
+          <line x1="178" y1="70" x2="232" y2="70"/><line x1="398" y1="70" x2="452" y2="70"/><line x1="618" y1="70" x2="672" y2="70"/><line x1="838" y1="70" x2="892" y2="70"/>
+        </g>
+        <path d="M535 106 V170 H95 V112" fill="none" stroke="#5BE39E" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#ah2)"/>
+        <g fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.34)" stroke-width="1">
+          <rect x="12" y="34" width="166" height="72"/><rect x="232" y="34" width="166" height="72"/><rect x="452" y="34" width="166" height="72"/><rect x="672" y="34" width="166" height="72"/>
+        </g>
+        <rect x="892" y="34" width="196" height="72" fill="#2ED37F"/>
+        <g font-family="Manrope, sans-serif" font-size="15" font-weight="600" fill="#EEF1EA">
+          <text x="28" y="66">Napier grass</text><text x="248" y="66">Digestion</text><text x="468" y="66">Upgrading</text><text x="688" y="66">Compression</text>
+          <text x="908" y="66" fill="#05462B">CBG to market</text>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#CDEBDA">
+          <text x="28" y="88">contracted catchment</text><text x="248" y="88">raw biogas ~55&#8211;65% CH&#8324;</text><text x="468" y="88">IS 16087:2016</text><text x="688" y="88">250 bar cascades</text>
+          <text x="908" y="88" fill="#05462B">OMCs &#183; industry</text>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#5BE39E">
+          <text x="300" y="194">digestate &#8594; FOM &amp; LFOM &#8594; back to the farm</text>
+        </g>
+      </svg>
+    </div>
+    <div class="steps">
+      <div><span class="k">01 &middot; GROW</span><h4>Harvest and ensile</h4><p>Grass from the contracted catchment is chopped and stored as silage to buffer supply.</p></div>
+      <div><span class="k">02 &middot; DIGEST</span><h4>Anaerobic digestion</h4><p>High-load reactors convert feedstock and a liquid co-substrate into raw biogas.</p></div>
+      <div><span class="k">03 &middot; UPGRADE</span><h4>Purify to fuel grade</h4><p>CO&#8322;, H&#8322;S and moisture are removed to meet IS 16087:2016.</p></div>
+      <div><span class="k">04 &middot; DISPATCH</span><h4>Compress and deliver</h4><p>Gas is compressed to 250 bar and delivered in cascades to buyers.</p></div>
+      <div><span class="k">05 &middot; RETURN</span><h4>Manure to the soil</h4><p>Digestate becomes FOM and LFOM, enriched with chelated micronutrients.</p></div>
+    </div>
+    <div class="ops">
+      <div><h4>Automation</h4><p>SCADA control of digestion, upgrading and compression, monitored from a central control room.</p></div>
+      <div><h4>Captive solar</h4><p>On-site solar at each plant reduces the cost of the plant's largest utility.</p></div>
+      <div><h4>Water</h4><p>Rainwater harvesting ponds and roughly 80% process water recycling.</p></div>
+      <div><h4>Safety &amp; environment</h4><p>Leak detection, fire protection, odour and effluent monitoring under CPCB consent conditions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="feedstock">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">Feedstock security</p><h2>We grow our own feedstock.</h2></div>
+      <p>Feedstock is the main operating risk in CBG. Plants that rely on crop residues depend on a short harvest window and volatile prices. Each IraBio plant is paired with its own Napier grass catchment under long-term contract.</p>
+    </div>
+    <div class="feed">
+      <div>
+        <div class="contract">
+          <div class="row"><div class="who">Aggregator<small>one per catchment</small></div><ul><li>Signs a single long-term contract covering all farmland in the catchment</li><li>Coordinates farmers and delivery schedules</li></ul></div>
+          <div class="row"><div class="who">Farmers<small>400&ndash;480 acres per plant</small></div><ul><li>Cultivate, irrigate and harvest Napier grass</li><li>Receive an assured purchase price for every tonne delivered</li></ul></div>
+          <div class="row"><div class="who">IraBio<small>plant operator</small></div><ul><li>Supplies planting material, manure and equipment</li><li>Monitors crop health and yield; holds a silage buffer and co-feedstock fallback</li></ul></div>
+        </div>
+      </div>
+      <div>
+        <p class="pull">A perennial energy crop, planted once and harvested through the year.</p>
+        <div class="why">
+          <div><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18V4M10 9c-3-1-5-3-5-6 3 0 5 2 5 6Zm0 4c3-1 5-3 5-6-3 0-5 2-5 6Z" fill="none" stroke="var(--leaf)" stroke-width="1.5" stroke-linecap="round"/></svg><div><h4>Year-round supply</h4><p>Multiple harvests a year from one planting, unlike seasonal residues.</p></div></div>
+          <div><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="var(--leaf)" stroke-width="1.5"/><path d="M10 6v4l3 2" fill="none" stroke="var(--leaf)" stroke-width="1.5" stroke-linecap="round"/></svg><div><h4>Known cost</h4><p>Contract pricing fixes feedstock cost for the life of the agreement.</p></div></div>
+          <div><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 15h14M5 15V9m5 6V5m5 10v-7" fill="none" stroke="var(--leaf)" stroke-width="1.5" stroke-linecap="round"/></svg><div><h4>Uniform input</h4><p>A single, clean crop keeps digester performance stable and handling simple.</p></div></div>
+          <div><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 0 1 10.5-4M16 10a6 6 0 0 1-10.5 4" fill="none" stroke="var(--leaf)" stroke-width="1.5" stroke-linecap="round"/><path d="M14.5 2.5v3.5H11M5.5 17.5V14H9" fill="none" stroke="var(--leaf)" stroke-width="1.5" stroke-linecap="round"/></svg><div><h4>Closed nutrient loop</h4><p>LFOM from the plant fertilises the same fields that feed it.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="model">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">Business model</p><h2>Two products from every tonne.</h2></div>
+      <p>Each plant earns from contracted gas sales and from organic manure, with further value from captured CO&#8322; and carbon credits. The base case rests on long-term offtake; direct retail is upside.</p>
+    </div>
+    <div class="streams">
+      <div class="stream"><span class="tag">Primary</span><h3>Compressed biogas</h3><p>Sold to oil and gas marketing companies under SATAT at the notified procurement price, and to industrial buyers.</p><p class="basis">15-year offtake framework</p></div>
+      <div class="stream"><span class="tag">Co-product</span><h3>Organic manure</h3><p>FOM and LFOM sold to farmers, cooperatives and fertiliser companies in each plant's catchment.</p><p class="basis">FCO-conforming product</p></div>
+      <div class="stream"><span class="tag">By-product</span><h3>Captured CO&#8322;</h3><p>Carbon dioxide separated during upgrading, captured for industrial gas buyers.</p><p class="basis">Recovered at upgrading</p></div>
+      <div class="stream"><span class="tag">Upside</span><h3>Carbon credits</h3><p>Methane capture and fossil fuel displacement create tradable emission reductions.</p><p class="basis">Registry route in development</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="impact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">Impact</p><h2>Cleaner fuel, healthier soil, steadier farm income.</h2></div>
+      <p>Each plant replaces imported fossil gas with domestic renewable gas and returns organic carbon to farmland. Impact figures for the programme are reported in the data room with their methodology.</p>
+    </div>
+    <div class="impact">
+      <div><h3>Energy security</h3><p>Every tonne of CBG displaces imported LNG in city gas networks, supporting the national blending mandate and saving foreign exchange.</p></div>
+      <div><h3>Soil health</h3><p>Fermented organic manure restores soil carbon and microbial activity and reduces dependence on chemical fertilisers.</p></div>
+      <div><h3>Rural livelihoods</h3><p>Long-term contracts give farmers an assured market for an energy crop, and each plant creates skilled rural employment.</p></div>
+    </div>
+    <div class="compliance">
+      <span>IS 16087:2016 gas quality</span><span>Fertilizer Control Order 1985</span><span>CPCB consents</span><span>SATAT offtake framework</span><span>MNRE CFA eligible</span>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="leadership">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">Leadership</p><h2>Engineering, agriculture and finance under one roof.</h2></div>
+      <p>The team combines three decades of agricultural technology and field farming with engineering and project finance experience across energy infrastructure.</p>
+    </div>
+    <div class="team">
+      <article class="person"><div class="mono" aria-hidden="true"><span>BM</span></div><h3>Bapayya Choudhary Maganti</h3><p class="role">Founder &amp; Director</p><p>Over 30 years across IT, electronics and agriculture. Has built sensor and control systems for farming, telecom, railway and healthcare, including SCADA for power generation and distribution.</p></article>
+      <article class="person"><div class="mono" aria-hidden="true"><span>MC</span></div><h3>Manish Chandrashekar</h3><p class="role">Technical Lead</p><p>Leads technology selection, plant engineering and commissioning across the ten-plant programme, from digester design through gas upgrading and compression.</p></article>
+      <article class="person"><div class="mono" aria-hidden="true"><span>RS</span></div><h3>Raja Shekar P</h3><p class="role">Director, Finance &amp; Partnerships</p><p>Background in banking and the solar industry, working on multi-megawatt and rooftop solar projects. B.E. in IT and an MBA in marketing and HR.</p></article>
+      <article class="person"><div class="mono" aria-hidden="true"><span>SR</span></div><h3>SambaSiva Rao P</h3><p class="role">Director, Agriculture</p><p>Over 30 years in commercial and natural farming focused on crop yields, and more than eight years in solar projects. Leads the Napier contract-farming model.</p></article>
+    </div>
+    <div class="advisors">
+      <div><b>Technology partner</b><span>Disclosed in data room</span></div>
+      <div><b>EPC contractor</b><span>Disclosed in data room</span></div>
+      <div><b>Statutory auditor</b><span>Disclosed in data room</span></div>
+      <div><b>Legal counsel</b><span>Disclosed in data room</span></div>
+      <div><b>Independent engineer</b><span>Disclosed in data room</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dark" id="investors">
+  <div class="wrap">
+    <div class="invest">
+      <div>
+        <p class="eyebrow">Investors</p>
+        <h2 style="font-size:clamp(34px,4.4vw,56px);line-height:1.06;margin-top:14px">Secure your position in India's renewable gas build-out.</h2>
+        <p style="color:var(--on-field-muted);font-size:17px;margin-top:18px;max-width:52ch">The blending mandate rises to 5% by 2028&ndash;29 and supply is far behind it. Our ten-plant, &#8377;1,000 crore programme is open to family offices, private equity, infrastructure and renewable energy funds, and development finance institutions. Qualified investors receive full data room access under NDA.</p>
+        <table class="glance" style="margin-top:32px">
+          <tr><th>Programme</th><td>10 plants &times; 12 TPD CBG</td></tr>
+          <tr><th>Programme size</th><td>&#8377;1,000 crore</td></tr>
+          <tr><th>Reference asset</th><td>Plant 01, Karnataka</td></tr>
+          <tr><th>Build to COD</th><td>12 months per plant</td></tr>
+          <tr><th>Use of funds</th><td>Plant and process, land, captive solar, manure processing, working capital</td></tr>
+        </table>
+        <div class="room">
+          <h4>In the data room</h4>
+          <ul>
+            <li>Detailed project report and technical review</li>
+            <li>Financial model with base case and sensitivities</li>
+            <li>SATAT letters of intent and offtake documents</li>
+            <li>Land, farming and statutory approval documents</li>
+            <li>Technology partner agreements and reference plant data</li>
+            <li>Corporate documents, audited accounts and cap table</li>
+          </ul>
+        </div>
+      </div>
+      <form id="enquiry" novalidate>
+        <h3>Request data room access</h3>
+        <p class="fsub">Tell us about your organisation. We respond to qualified enquiries with an NDA and a data room invitation.</p>
+        <div class="grid2">
+          <label for="f-name">Full name<input id="f-name" name="name" autocomplete="name" required></label>
+          <label for="f-org">Organisation<input id="f-org" name="org" autocomplete="organization" required></label>
+          <label for="f-type">Investor type<select id="f-type" name="type" required><option value="">Select</option><option>Family office</option><option>Private equity</option><option>Infrastructure fund</option><option>Renewable energy fund</option><option>Development finance institution</option><option>Strategic investor</option><option>Other</option></select></label>
+          <label for="f-ticket">Indicative ticket size<select id="f-ticket" name="ticket"><option value="">Prefer not to say</option><option>Up to &#8377;50 crore</option><option>&#8377;50&ndash;200 crore</option><option>&#8377;200&ndash;500 crore</option><option>Above &#8377;500 crore</option></select></label>
+          <label class="full" for="f-email">Work email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+          <label class="full" for="f-msg">Message<textarea id="f-msg" name="msg" placeholder="Areas of interest, timeline, questions"></textarea></label>
+        </div>
+        <label class="consent" for="f-ok"><input id="f-ok" type="checkbox" required> I confirm I am enquiring on behalf of a professional or institutional investor.</label>
+        <button class="btn btn-gold" type="submit">Prepare request</button>
+        <p class="err" id="f-err" role="alert"></p>
+        <div class="done" id="f-done" hidden>
+          <p><strong>Your request is ready.</strong> Copy it and send it to our investor relations team at the address below.</p>
+          <pre id="f-out"></pre>
+          <div class="row"><code id="f-addr"></code><button type="button" class="btn btn-line" id="f-copy">Copy request</button><span id="f-copied" style="font-size:13px;color:var(--muted)"></span></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#top" style="color:#fff"><svg width="40" height="40" aria-hidden="true"><use href="#mark"/></svg><span class="wm"><b>IRABIO</b><small style="color:var(--on-field-muted)">RENEWABLE GAS</small></span></a>
+        <p style="margin-top:12px;max-width:40ch">Integrated compressed biogas plants that turn dedicated energy crops into renewable fuel and organic manure.</p>
+        <p style="margin-top:16px">IraBio Tech Private Limited<br>Bengaluru, Karnataka, India</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ol style="list-style:none;padding:0">
+          <li><a href="#opportunity">Opportunity</a></li><li><a href="#programme">Programme</a></li><li><a href="#operations">Operations</a></li><li><a href="#feedstock">Feedstock</a></li><li><a href="#leadership">Leadership</a></li><li><a href="#investors">Investors</a></li>
+        </ol>
+      </div>
+      <div>
+        <h4>Policy sources</h4>
+        <ol>
+          <li><a href="https://en.vikaspedia.in/viewcontent/energy/policy-support/renewable-energy-1/biofuels/compressed-bio-gas-blending-obligation" target="_blank" rel="noopener">CBG Blending Obligation schedule</a></li>
+          <li><a href="https://www.bharatpetroleum.in/our-businesses/fuels-and-services/biofuels/satat" target="_blank" rel="noopener">SATAT programme targets, BPCL</a></li>
+          <li><a href="https://canarabank.bank.in/pages/Compressed-Biogas-Plants" target="_blank" rel="noopener">MNRE Central Financial Assistance, Canara Bank</a></li>
+          <li><a href="https://powerline.net.in/2025/08/18/harnessing-biomass-cbg-sector-gains-momentum-but-challenges-remain/" target="_blank" rel="noopener">SATAT pricing and plant count, July 2025</a></li>
+        </ol>
+      </div>
+    </div>
+    <div class="legal">
+      <span>This website is for information only and does not constitute an offer or solicitation to subscribe to any securities. Any investment will be made only through definitive documents.</span>
+      <span>&copy; 2026 IraBio Tech Private Limited</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Napier grass field: slow, quiet sway behind the hero copy
+  const c=document.getElementById('grass'); if(!c) return;
+  const ctx=c.getContext('2d'); let W=0,H=0,blades=[],dpr=Math.min(window.devicePixelRatio||1,2);
+  const still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function seed(){
+    const r=c.getBoundingClientRect(); W=r.width; H=r.height; c.width=W*dpr; c.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    blades=[]; const n=Math.round(W/5);
+    for(let i=0;i<n;i++){const x=Math.random()*W; const h=H*(.3+Math.random()*.5);
+      blades.push({x,h,w:.6+Math.random()*1.1,ph:Math.random()*6.28,sp:.4+Math.random()*.5,gold:Math.random()<.12});}
+  }
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    for(const b of blades){
+      const sway=Math.sin(t*.00045*b.sp+b.ph+b.x*.004)*b.h*.06;
+      ctx.beginPath(); ctx.moveTo(b.x,H);
+      ctx.quadraticCurveTo(b.x+sway*.3,H-b.h*.55,b.x+sway,H-b.h);
+      ctx.strokeStyle=b.gold?'rgba(255,255,255,.55)':'rgba(120,240,175,.38)'; ctx.lineWidth=b.w; ctx.stroke();
+    }
+    if(!still) requestAnimationFrame(draw);
+  }
+  seed(); draw(0);
+  let rt; window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{seed(); if(still) draw(0);},150);});
+})();
+
+(function(){
+  const IR_EMAIL='investors@irabio.in';
+  const f=document.getElementById('enquiry'), err=document.getElementById('f-err');
+  const done=document.getElementById('f-done'), out=document.getElementById('f-out');
+  document.getElementById('f-addr').textContent=IR_EMAIL;
+  f.addEventListener('submit',e=>{
+    e.preventDefault(); err.textContent='';
+    const v=id=>document.getElementById(id).value.trim();
+    if(!v('f-name')||!v('f-org')||!v('f-type')){err.textContent='Add your name, organisation and investor type to continue.';return;}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('f-email'))){err.textContent='Enter a valid work email address.';return;}
+    if(!document.getElementById('f-ok').checked){err.textContent='Confirm that you are enquiring for a professional or institutional investor.';return;}
+    out.textContent=['Subject: Data room access request — IraBio CBG programme','',
+      'Name: '+v('f-name'),'Organisation: '+v('f-org'),'Investor type: '+v('f-type'),
+      'Indicative ticket: '+(v('f-ticket')||'Not stated'),'Email: '+v('f-email'),'',(v('f-msg')||'')].join('\n').trim();
+    done.hidden=false; done.scrollIntoView({block:'nearest',behavior:'smooth'});
+  });
+  document.getElementById('f-copy').addEventListener('click',()=>{
+    const msg=document.getElementById('f-copied');
+    navigator.clipboard.writeText(out.textContent).then(()=>{msg.textContent='Copied';},()=>{
+      const r=document.createRange(); r.selectNodeContents(out); const s=getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent='Selected, press Ctrl+C to copy';});
+  });
+})();
+</script>
+
+</body></html>
